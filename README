@@ -1,0 +1,6 @@
+This is a Connect Four Game.. 
+It deploys to Heroku.
+It's written in PHP.
+It has composer dependicies.
+Composer.json alerts heroku it's PHP. 
+
