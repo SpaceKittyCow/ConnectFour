@@ -3,4 +3,4 @@ It deploys to Heroku.
 It's written in PHP.
 It has composer dependicies.
 Composer.json alerts heroku it's PHP. 
-
+To run tests: phpunit --configuration="./phpunit.xml" --bootstrap="./bootstrap.php" 
