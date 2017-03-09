@@ -14,7 +14,7 @@ $app->get('/play/{color}/{column}', function($color, $column) use($app, $user) {
     $user->setColor($app->escape($color));
     $row = $user->SetPiece($app->escape($column));
     $colorCheck = $user->getColor();
-    return $row;
+    return 'cow';
 });
 
 $app->run();
