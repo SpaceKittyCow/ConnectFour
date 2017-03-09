@@ -10,13 +10,18 @@ class Users {
 
    private $color;   
 
+   private $gameBoard;   
+
+   private $gamePieces;   
+
    const NAMEERROR = 'Please Provide a UserName';
    const COLORERROR = 'Please Choose a Color';
 
    function __construct($gameBoard, $name = '', $color = '') { 
       $this->setName($name);
       $this->setColor($color);
-      $gamepieces = new GamePieces($gameBoard->GetTotalHoles());
+      $this->gameBoard = $gameBoard;
+      $this->gamePieces = new GamePieces($this->gameBoard->GetTotalHoles());
    }
    
    public function getName() {
@@ -44,8 +49,8 @@ class Users {
    }
 
   public function SetPiece($column){
-     $gamepieces->UsePiece();
-     return $gameBoard->DropPiece($column, $this->getColor());
+     $this->gamePieces->UsePiece();
+     return $this->gameBoard->DropPiece($column, $this->getColor());
   }
 
 

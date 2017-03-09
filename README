@@ -4,7 +4,7 @@ It's written in PHP.
 It has composer dependicies.
 Composer.json alerts heroku it's PHP. 
 To run tests: phpunit --configuration="./phpunit.xml" --bootstrap="./bootstrap.php" 
-To deploy: heroku create | git push heroku master |  heroku ps:scale web=1 
+To deploy:  git push heroku master |  heroku ps:scale web=1 
 To launch: heroku open
 
 
