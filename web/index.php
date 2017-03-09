@@ -26,7 +26,6 @@ $app->post('/play', function(Request $request) {
     if ($user->getName() == "Computer") {
        $column = $user->decideForMe();
     }
-    var_dump($column);
     $state = $user->SetPiece($column);
     return json_encode($state);
 
