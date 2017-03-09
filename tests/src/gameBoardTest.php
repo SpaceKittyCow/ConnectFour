@@ -12,7 +12,7 @@ final class GameBoardTest extends TestCase {
         $board = new GameBoard();
         $this->assertEquals($board->getTotalHoles(), '42');
 
-        $board = new GameBoard(8,9); 
+        $board = new GameBoard('',8,9); 
         $this->assertEquals($board->getTotalHoles(), '72');
     }
 
@@ -37,4 +37,17 @@ final class GameBoardTest extends TestCase {
         $row = $board2->DropPiece('100', 'blue');
     } 
     
+    public function testSetState () {
+        $board = new GameBoard();
+        $board->DropPiece('7', 'blue'); 
+        $board->DropPiece('5', 'green'); 
+        $board->DropPiece('6', 'blue'); 
+        $board->DropPiece('4', 'green'); 
+        $board->DropPiece('5', 'blue'); 
+        $board->DropPiece('3', 'green'); 
+        $state = $board->getState();
+
+        $cleanBoard = new GameBoard($state);
+        $this->assertEquals ($state, $cleanBoard->getState());             
+    }
 }

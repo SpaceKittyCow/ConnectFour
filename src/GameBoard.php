@@ -8,21 +8,26 @@ class GameBoard {
 
     private $columns;
 
-    private $board = array();
+    private $state = array();
 
     const NOMOREHOLES = "You Cannot Drop a piece Here"; 
 
     const NOTCOLUMN = "This is not a Column"; 
 
-    function __construct($rows = 6, $columns = 7) {
+    function __construct($state = '', $rows = 6, $columns = 7) {
        $this->rows = $rows;
        $this->columns = $columns;
-       $this->initalizeGameBoard();
+       (!empty($state)) ? $this->setState($state) : $this->initalizeGameBoard();
     } 
 
     public function initalizeGameBoard () { 
+        $cleanArray = array();
+        for ($a = 1; $a <= $this->columns; $a++) {
+            $cleanArray[$a] = '';
+        } 
+
         for ($i = 1; $i <= $this->rows; $i++) {
-            $this->board[]= array();
+            $this->state[$i]= $cleanArray;
 	}
     }
 
@@ -33,13 +38,13 @@ class GameBoard {
     public function DropPiece($column, $color) {
         $this->validateColumn($column);              
         $row = $this->findFirstHole($column);
-        $this->board[$row][$column] = $color; 
+        $this->state[$row][$column] = $color; 
         return $row;  
     } 
   
     private function findFirstHole ($column) { 
         for ($i = 1; $i <= $this->rows; $i++) {
-           if (empty($this->board[$i][$column])) {
+           if (empty($this->state[$i][$column])) {
               return $i;
            }
         }
@@ -52,8 +57,13 @@ class GameBoard {
         }
     }
    
-    public function GetWholeBoard() {
-	//won't need until sessions are used
+    public function getState() {
+        return $this->state;
+    }
+
+    public function setState($state) { 
+        //needs validation
+        $this->state = $state;       
     }
 
 } 

@@ -50,9 +50,12 @@ class Users {
 
   public function SetPiece($column){
      $this->gamePieces->UsePiece();
-     return $this->gameBoard->DropPiece($column, $this->getColor());
+     $row = $this->gameBoard->DropPiece($column, $this->getColor());
+     return array(
+        'row' => $row, 
+        'leftPieces' => $this->gamePieces->getLeftPiecesCount(), 
+        'state' => $this->gameBoard->getState()
+     );
   }
-
-
 
 }
