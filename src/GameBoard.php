@@ -37,18 +37,25 @@ class GameBoard {
 
     public function DropPiece($column, $color) {
         $this->validateColumn($column);              
-        $row = $this->findFirstHole($column);
+        $row = $this->validateFullColumn($column);
         $this->state[$row][$column] = $color; 
         return $row;  
     } 
-  
-    private function findFirstHole ($column) { 
+
+    private function validateFullColumn($column) { 
+        if(empty($this->findFirstHole($column))){
+            throw new \Exception (self::NOMOREHOLES);
+        } 
+        return $this->findFirstHole($column);
+    }  
+
+    public function findFirstHole ($column) { 
         for ($i = 1; $i <= $this->rows; $i++) {
            if (empty($this->state[$i][$column])) {
               return $i;
            }
         }
-        throw new \Exception (self::NOMOREHOLES);
+        return '';
     }
 
     private function ValidateColumn($column) {

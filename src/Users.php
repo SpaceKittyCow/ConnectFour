@@ -48,14 +48,23 @@ class Users {
        }
    }
 
-  public function SetPiece($column){
-     $this->gamePieces->UsePiece();
-     $row = $this->gameBoard->DropPiece($column, $this->getColor());
-     return array(
-        'row' => $row, 
-        'leftPieces' => $this->gamePieces->getLeftPiecesCount(), 
-        'state' => $this->gameBoard->getState()
-     );
-  }
+    public function SetPiece($column){
+       $this->gamePieces->UsePiece();
+       $row = $this->gameBoard->DropPiece($column, $this->getColor());
+       return array(
+          'row' => $row, 
+          'leftPieces' => $this->gamePieces->getLeftPiecesCount(), 
+          'state' => $this->gameBoard->getState()
+       );
+   }
 
+    public function decideForMe(){ 
+       $count = count($this->gameBoard->getState()[1]); 
+       for($i = 1; $i <= $count; $i++) { 
+           $columnTest = $this->gameBoard->findFirstHole($i);
+           if(!empty($columnTest)) {
+             return $columnTest;
+           }
+       } 
+   }
 }

@@ -24,9 +24,9 @@ $app->post('/play', function(Request $request) {
     $user = new ConnectFour\Users($gameBoard, $data['name'], $data['color']);
     $column = $data['column'];
     if ($user->getName() == "Computer") {
-      $column = $user->decideHole();
-      $user->setColor('black');
+       $column = $user->decideForMe();
     }
+    var_dump($column);
     $state = $user->SetPiece($column);
     return json_encode($state);
 
