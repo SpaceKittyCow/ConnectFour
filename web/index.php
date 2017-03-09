@@ -1,21 +1,35 @@
 <?php 
 require_once __DIR__.'/../vendor/autoload.php';
-
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 $app = new Silex\Application();
+$app['debug'] = true;
 
-$app->get('/hello2/{name}', function($name) use($app) {
+$app->get('/hello/{name}', function($name) use($app) {
     return 'Hello '.$app->escape($name);
 });
 
-$app->get('/play/{color}/', function($color) use($app) {
-$gameBoard = new ConnectFour\GameBoard();
-$color = $app->escape($color);
-$user = new ConnectFour\Users($gameBoard, 'unknown', $color);
-var_dump($user); 
-$state = $user->SetPiece('6');
-var_dump(json_encode($state));
+$app->get('/start/{name}/{color}/{column}', function($color, $name, $column) use($app) {
+    $gameBoard = new ConnectFour\GameBoard();
+    $user = new ConnectFour\Users($gameBoard, $app->escape($name), $app->escape($color));
+    $state = $user->SetPiece($app->escape($column));
+    return json_encode($state);
 });
 
 
+//array("state"=>array(), name => string, color => string, column => int);
+$app->post('/play', function(Request $request) {
+    $data =json_decode($request->getContent(), true);
+    $gameBoard = new ConnectFour\GameBoard($data['state']);
+    $user = new ConnectFour\Users($gameBoard, $data['name'], $data['color']);
+    $column = $data['column'];
+    if ($user->getName() == "Computer") {
+      $column = $user->decideHole();
+      $user->setColor('black');
+    }
+    $state = $user->SetPiece($column);
+    return json_encode($state);
+
+});
 
 $app->run();
