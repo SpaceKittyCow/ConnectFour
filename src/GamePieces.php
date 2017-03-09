@@ -4,7 +4,7 @@ namespace ConnectFour;
 
 class GamePieces {
 
-    private $totalPiecesPerPlayer = (42/2);
+    private $totalPiecesPerPlayer;
 
     private $piecesUsed = 0; 
 

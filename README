@@ -4,3 +4,15 @@ It's written in PHP.
 It has composer dependicies.
 Composer.json alerts heroku it's PHP. 
 To run tests: phpunit --configuration="./phpunit.xml" --bootstrap="./bootstrap.php" 
+To deploy: git push heroku master |  heroku ps:scale web=1 
+To launch: heroku open
+
+
+Classes:
+
+GamesPieces holds the Count and How many Pieces per User
+User: Name, Color and Power to drop
+GameBoard: Holds where the data is
+
+You'll need to call GameBoard before any Users. 
+Gamepieces is instantited in User. 
