@@ -18,5 +18,23 @@ final class GameBoardTest extends TestCase {
 
     public function testDropPiece() { 
         $board = new GameBoard();
+        $row = $board->DropPiece('7', 'blue');
+        $this->assertEquals($row, '1');
+
+        for ($i = 1; $i <= 5; $i++) {
+            $lastRow = $board->DropPiece('7', 'blue');
+        }
+
+        $this->assertEquals($lastRow, '6');
+        $this->expectExceptionMessage($board::NOMOREHOLES);  
+        $board->DropPiece('7', 'blue');  
     }
+
+    public function testDropPieceColumnValidate () {
+
+        $board2 = new GameBoard();
+        $this->expectExceptionMessage($board2::NOTCOLUMN);  
+        $row = $board2->DropPiece('100', 'blue');
+    } 
+    
 }
