@@ -6,10 +6,8 @@ $app = new Silex\Application();
 $app['debug'] = true;
 
 $app->get('/', function() use($app) { 
-$filepath = __DIR__ '../README');
-$file = file_get_contents($filepath, true);
-return $file; 
-}
+return 'Welcome to the ConnectFour Game. Please Check the README on how to communicate with me';
+});
 
 
 $app->get('/hello/{name}', function($name) use($app) {
