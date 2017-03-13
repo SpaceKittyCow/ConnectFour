@@ -15,8 +15,12 @@ $app->get('/hello/{name}', function($name) use($app) {
 
 $app->get('/start/{name}/{color}/{column}', function($color, $name, $column) use($app) {
     $gameBoard = new ConnectFour\GameBoard();
-    $user = new ConnectFour\Users($gameBoard, $app->escape($name), $app->escape($color));
-    $state = $user->SetPiece($app->escape($column));
+    try {
+        $user = new ConnectFour\Users($gameBoard, $app->escape($name), $app->escape($color));
+        $state = $user->SetPiece($app->escape($column));
+    } catch (\Exception $e) {
+        return $e;
+    } 
     return json_encode($state);
 });
 
@@ -27,13 +31,17 @@ $app->get('/play', function() use($app) {
 //array("state"=>array(), name => string, color => string, column => int);
 $app->post('/play', function(Request $request) {
     $data =json_decode($request->getContent(), true);
-    $gameBoard = new ConnectFour\GameBoard($data['state']);
-    $user = new ConnectFour\Users($gameBoard, $data['name'], $data['color']);
-    $column = $data['column'];
-    if ($user->getName() == "Computer") {
-       $column = $user->decideForMe();
+    try {
+        $gameBoard = new ConnectFour\GameBoard($data['state']);
+        $user = new ConnectFour\Users($gameBoard, $data['name'], $data['color']);
+        $column = $data['column'];
+        if ($user->getName() == "Computer") {
+            $column = $user->decideForMe();
+        }
+       $state = $user->SetPiece($column);
+    } catch (\Exception $e) {
+       return $e;
     }
-    $state = $user->SetPiece($column);
     return json_encode($state);
 
 });
