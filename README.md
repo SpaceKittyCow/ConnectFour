@@ -6,12 +6,10 @@
 * It has composer dependicies.
 * Composer.json alerts heroku that it is PHP. 
 * To run tests: phpunit --configuration="./phpunit.xml" --bootstrap="./bootstrap.php" 
-
 * It deploys to Heroku.
 * To deploy:  git push heroku master |  heroku ps:scale web=1 
 * To launch: heroku open
 * Master is deployed too: https://thawing-everglades-15674.herokuapp.com
-
 * All state is passed in and out, none is stored. 
 * Computer is the name of the AI. If you want the AI to decide your move, let the name be Computer. 
 
@@ -27,6 +25,7 @@
 ##ROUTES
 
 ###GET /start/{name}/{color}/{column}###
+####Live Endpoint: https://thawing-everglades-15674.herokuapp.com/start/Hello/blue/4 ####
 Endpoint to call to start a game
 * Name is the name of uers
 * Color is the color of the tiles
@@ -97,6 +96,7 @@ Should return something like:
 }
 ```
 ###POST /play###
+https://thawing-everglades-15674.herokuapp.com/play
 POST play is where you'll continue to play, with either a User given name or Computer to idetify the AI. 
 
 Post file looks like this, and returns the same as Get. 
