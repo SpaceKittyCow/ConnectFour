@@ -1,5 +1,7 @@
 #Connect Four Game#
 
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/5b2aed29fea38e078a24)
+
 ##Implementation##
 
 * It's written in PHP.
