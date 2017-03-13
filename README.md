@@ -1,28 +1,40 @@
-This is a Connect Four Game.. 
-It deploys to Heroku.
-It's written in PHP.
-It has composer dependicies.
-Composer.json alerts heroku that it is PHP. 
-To run tests: phpunit --configuration="./phpunit.xml" --bootstrap="./bootstrap.php" 
-To deploy:  git push heroku master |  heroku ps:scale web=1 
-To launch: heroku open
+#Connect Four Game#
 
+##Implementation##
 
-Classes:
+* It's written in PHP.
+* It has composer dependicies.
+* Composer.json alerts heroku that it is PHP. 
+* To run tests: phpunit --configuration="./phpunit.xml" --bootstrap="./bootstrap.php" 
 
-GamesPieces holds the Count and How many Pieces per User
-User: Name, Color and Power to drop
-GameBoard: Holds where the data is
+* It deploys to Heroku.
+* To deploy:  git push heroku master |  heroku ps:scale web=1 
+* To launch: heroku open
+* Master is deployed too: https://thawing-everglades-15674.herokuapp.com
 
-You'll need to call GameBoard before any Users. 
-Gamepieces is instantited in User. 
+* All state is passed in and out, none is stored. 
+* Computer is the name of the AI. If you want the AI to decide your move, let the name be Computer. 
 
-https://thawing-everglades-15674.herokuapp.com is where it's up.
+##Classes:##
 
+* GamesPieces: holds the Count and How many Pieces per User
+* User: Name, Color and Power to drop
+* GameBoard: Holds where the data is
 
-Start to play: 
-GET /start/{name}/{color}/{column}
+* You'll need to call GameBoard before any Users. 
+* Gamepieces is instantited in User. 
+
+##ROUTES
+
+###GET /start/{name}/{color}/{column}###
+Endpoint to call to start a game
+* Name is the name of uers
+* Color is the color of the tiles
+* Column is the Number of column that your droping the first tile in (Should be one through 7 only)
+You start out with a blank board of six rows and seven columns
+
 Should return something like:
+```
 {
   "row": 1,
   "leftPieces": 20,
@@ -83,10 +95,12 @@ Should return something like:
     }
   }
 }
-
+```
+###POST /play###
 POST play is where you'll continue to play, with either a User given name or Computer to idetify the AI. 
 
-POST /play Post file looks like this, and returns the same as Get. 
+Post file looks like this, and returns the same as Get. 
+```
 {
   "name": "Computer",
   "color": "black",
@@ -148,3 +162,4 @@ POST /play Post file looks like this, and returns the same as Get.
     }
   }
 }
+```
