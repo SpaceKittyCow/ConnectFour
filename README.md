@@ -96,7 +96,7 @@ Should return something like:
 }
 ```
 ###POST /play###
-https://thawing-everglades-15674.herokuapp.com/play
+#### Live endpoint https://thawing-everglades-15674.herokuapp.com/play ####
 POST play is where you'll continue to play, with either a User given name or Computer to idetify the AI. 
 
 Post file looks like this, and returns the same as Get. 
